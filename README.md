@@ -1,2 +1,1 @@
-Config-Template
-===============
+all kinds of config file template
