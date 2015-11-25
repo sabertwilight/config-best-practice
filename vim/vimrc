@@ -9,17 +9,45 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'flazz/vim-colorschemes'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" Plugin 'fatih/vim-go'
-" Plugin 'Shougo/neocomplete.vim'
 Plugin 'bling/vim-airline'
 set laststatus=2
 set encoding=utf-8
 set t_Co=256
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_theme='powerlineish' " Need font patch
+
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+map <c-p>f :CtrlPMixed<CR>
+set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux"
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+
+Plugin 'scrooloose/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 0 
+let g:syntastic_auto_loc_list = 0 
+let g:syntastic_check_on_open = 1 
+let g:syntastic_check_on_wq = 1 
+let g:syntastic_mode_map={ 'mode': 'active',
+            \ 'active_filetypes': [], 
+            \ 'passive_filetypes': ['html'] }
+nmap <Leader>n :lnext<CR>
+nmap <Leader>p :lprevious<CR>
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -35,3 +63,23 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+" my color scheme
+colorscheme	Monokai
+
+" turn on synyax highlight
+syntax on
+
+" Python VIM Best Practice
+" follow http://docs.python-guide.org/en/latest/dev/env/ 
+set textwidth=79  " lines longer than 79 columns will be broken
+set shiftwidth=4  " operation >> indents 4 columns; << unindents 4 columns
+set tabstop=4     " a hard TAB displays as 4 columns
+set expandtab     " insert spaces when hitting TABs
+set softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
+set shiftround    " round indent to multiple of 'shiftwidth'
+set autoindent    " align the new line indent with the previous line
+set cursorline    " show a visual line under the cursor's current line
+set showmatch     " show the matching part of the pair for [] {} and ()
+let python_highlight_all = 1    " enable all Python syntax highlighting features
+
