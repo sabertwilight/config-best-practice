@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "centos/7"
+  config.vm.define "dnode1" do |dnode1|
+    dnode1.vm.network "private_network", ip: "192.168.33.41"
+    dnode1.vm.provider "virtualbox" do |vb|
+      vb.name = "dnode1"
+      vb.cpus = "1"
+      vb.memory = "1024"
+    end
+  end
+  config.vm.define "dnode2" do |dnode2|
+    dnode2.vm.network "private_network", ip: "192.168.33.42"
+    dnode2.vm.provider "virtualbox" do |vb|
+      vb.name = "dnode2"
+      vb.cpus = "1"
+      vb.memory = "1024"
+    end
+  end
+  config.vm.define "dnode3" do |dnode3|
+    dnode3.vm.network "private_network", ip: "192.168.33.43"
+    dnode3.vm.provider "virtualbox" do |vb|
+      vb.name = "dnode3"
+      vb.cpus = "1"
+      vb.memory = "1024"
+    end
+  end
+end
