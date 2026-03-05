@@ -1,0 +1,40 @@
+{
+    "name": "satmetainfo-api",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "../../satmetaapi"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.debugpy",
+                "ms-python.vscode-python-envs",
+                "ms-python.flake8",
+                "ms-python.black-formatter",
+                "ms-python.vscode-pylance",
+                "redhat.vscode-yaml",
+                "sst-dev.opencode"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/workspace/.venv/bin/python"
+            }
+        }
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder:HOME}/.devcontainer/satmetaapi,target=/workspace/.devcontainer/satmetaapi,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/opencode.json,target=/home/vscode/.config/opencode/opencode.json,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/oh-my-opencode.json,target=/home/vscode/.config/opencode/oh-my-opencode.json,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.local/share/opencode/auth.json,target=/home/vscode/.local/share/opencode/auth.json,type=bind,consistency=cached"
+    ],
+    "remoteEnv": {
+        "OPENCODE_CONFIG_DIR": "/home/vscode/.config/opencode",
+        "OPENCODE_DATA_DIR": "/workspace/.opencode/data",
+        "XDG_CACHE_HOME": "/workspace/.opencode/cache"
+    },
+  
+    "workspaceMount": "source=${localWorkspaceFolder}/satmetaapi,target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "remoteUser": "vscode",
+    "containerUser": "vscode"
+}
