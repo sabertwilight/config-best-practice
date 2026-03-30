@@ -1,0 +1,4 @@
+# This file is auto-generated from pyproject.toml via uv
+# Use `uv pip compile pyproject.toml -o requirements.txt` to update
+
+flask>=3.0.0
