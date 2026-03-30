@@ -1,0 +1,34 @@
+{
+    "name": "homediary-api",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "../../api"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.go",
+                "sst-dev.opencode",
+                "redhat.vscode-yaml"
+            ]
+        }
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder:HOME}/.devcontainer/api,target=/workspace/.devcontainer/api,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/opencode.json,target=/home/vscode/.config/opencode/opencode.json,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/oh-my-opencode.json,target=/home/vscode/.config/opencode/oh-my-opencode.json,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/plugins-available,target=/home/vscode/.config/opencode/plugins-available,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/plugins,target=/home/vscode/.config/opencode/plugins,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/opencode/skills,target=/home/vscode/.config/opencode/skills,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.local/share/opencode/auth.json,target=/home/vscode/.local/share/opencode/auth.json,type=bind,consistency=cached"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder}/api,target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "remoteEnv": {
+        "OPENCODE_CONFIG_DIR": "/home/vscode/.config/opencode",
+        "OPENCODE_DATA_DIR": "/workspace/.opencode/data",
+        "XDG_CACHE_HOME": "/workspace/.opencode/cache"
+    },
+    "remoteUser": "vscode"
+}
+
