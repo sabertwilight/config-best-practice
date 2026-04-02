@@ -10,13 +10,11 @@
             "HTTP_PROXY": "http://host.docker.internal:7890",
             "HTTPS_PROXY": "http://host.docker.internal:7890",
             "NO_PROXY": "localhost,127.0.0.1,.local,.internal"
-        }
+        },
+        "options": [
+            "--add-host=host.docker.internal:host-gateway"
+        ]
     },
-    // Linux 需要额外配置 host.docker.internal
-    "runArgs": [
-        "--add-host=host.docker.internal:host-gateway"
-    ],
-    // "dockerComposeFile": ["../docker-compose.yml"],
     "customizations": {
         "vscode": {
             "extensions": [
