@@ -2,11 +2,8 @@
     "name": "ccpydev",
     "build": {
         "dockerfile": "Dockerfile",
-        "context": "../",
-        // BuildKit 代理注入：自动传递给所有 RUN 指令
+        "context": ".",
         "args": {
-            // Linux: host.docker.internal 通过 extra_hosts 解析到宿主机
-            // Mac: host.docker.internal 原生支持
             "HTTP_PROXY": "http://host.docker.internal:7890",
             "HTTPS_PROXY": "http://host.docker.internal:7890",
             "NO_PROXY": "localhost,127.0.0.1,.local,.internal"
@@ -15,6 +12,10 @@
             "--add-host=host.docker.internal:host-gateway"
         ]
     },
+    "runArgs": [
+        "--network",
+        "app32"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -33,24 +34,25 @@
         }
     },
     "mounts": [
-        "source=${localWorkspaceFolder:HOME}/.devcontainer,target=/workspace/.devcontainer,type=bind,consistency=cached",
+        // .devcontainer挂载
+        "source=${localWorkspaceFolder:HOME}/.devcontainer/api,target=/workspace/.devcontainer,type=bind,consistency=cached",
+        // Volume 持久化 home 目录（推荐）
+        "source=homediary-api-home,target=/home/vscode,type=volume",
+        // 可选：只读共享部分配置（不包含 hooks）
         "source=${localEnv:HOME}/.claude/settings,target=/home/vscode/.claude/settings,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.claude/settings.json,target=/home/vscode/.claude/settings.json,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/agents,target=/home/vscode/.claude/agents,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/commands,target=/home/vscode/.claude/commands,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/hooks,target=/home/vscode/.claude/hooks,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/plugins,target=/home/vscode/.claude/plugins,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/package.json,target=/home/vscode/.claude/package.json,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.claude/projects,target=/home/vscode/.claude/projects,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/get-shit-done,target=/home/vscode/.claude/get-shit-done,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.claude/gsd-file-manifest.json,target=/home/vscode/.claude/gsd-file-manifest.json,type=bind,consistency=cached"
     ],
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace",
     "remoteUser": "vscode",
+    
     "postCreateCommand": "bash .devcontainer/post-create.sh",
-    "containerEnv": {
-        "PATH": "/home/vscode/.local/bin:${env:PATH}"
-    }
+    // 容器启动后执行
+    "postStartCommand": "echo 'DevContainer 已就绪'"
 }
