@@ -15,7 +15,7 @@ ENV UV_PYTHON=/usr/local/bin/python
 ENV HOME=/home/vscode
 
 # ========== 安装 Claude Code ==========
-RUN curl -fsSL https://claude.ai/install.sh | bash \
+RUN curl -fsSL https://claude.ai/install.sh | bash -s 2.1.118 \
     && /home/vscode/.local/bin/claude --version
 
 ENV PATH="/usr/local/bin:/home/vscode/.local/bin:${PATH}"
