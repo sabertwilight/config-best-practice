@@ -144,7 +144,7 @@ main() {
     create_directory_structure
     
     # 3. 初始化配置
-    init_claude_config
+    #init_claude_config
     
     # 4. 检查依赖
     check_dependencies
