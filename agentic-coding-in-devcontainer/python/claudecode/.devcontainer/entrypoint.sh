@@ -32,7 +32,7 @@ fix_home_permissions() {
         
         # 使用 sudo 修复（容器内 vscode 用户有 NOPASSWD sudo 权限）
         sudo chown -R vscode:vscode /home/vscode
-                log_info "✓ 权限修复完成"
+        log_info "✓ 权限修复完成"
     else
         log_info "✓ 权限正确"
     fi
@@ -144,7 +144,7 @@ main() {
     create_directory_structure
     
     # 3. 初始化配置
-    init_claude_config
+    # init_claude_config
     
     # 4. 检查依赖
     check_dependencies
