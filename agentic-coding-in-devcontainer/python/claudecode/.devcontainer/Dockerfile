@@ -1,5 +1,10 @@
 FROM m.daocloud.io/docker.io/library/python:3.12-bullseye
 
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ENV HTTP_PROXY=${HTTP_PROXY}
+ENV HTTPS_PROXY=${HTTPS_PROXY}
+
 # 装系统依赖 + vscode 用户
 RUN sed -i '/bullseye-backports/s/^/#/' /etc/apt/sources.list \
     && apt-get update && apt-get install -y \
@@ -15,8 +20,8 @@ ENV UV_PYTHON=/usr/local/bin/python
 ENV HOME=/home/vscode
 
 # ========== 安装 Claude Code ==========
-RUN curl -fsSL https://claude.ai/install.sh | bash -s 2.1.118 \
-    && /home/vscode/.local/bin/claude --version
+RUN curl -fsSL https://claude.ai/install.sh | bash -s 2.1.118
+RUN /home/vscode/.local/bin/claude --version
 
 ENV PATH="/usr/local/bin:/home/vscode/.local/bin:${PATH}"
 

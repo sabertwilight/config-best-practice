@@ -1,6 +1,6 @@
 {
     "name": "ccpydev",
-    "image": "python:3.12-bullseye-cc",
+    "image": "ccpydevc:2.1.118-3.12-bullseye",
     "runArgs": [
         "--add-host=host.docker.internal:host-gateway",
         "--network",
