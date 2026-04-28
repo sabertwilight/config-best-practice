@@ -1,5 +1,10 @@
 FROM m.daocloud.io/docker.io/library/golang:1.25-trixie
 
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ENV HTTP_PROXY=${HTTP_PROXY}
+ENV HTTPS_PROXY=${HTTPS_PROXY}
+
 # ========== 配置清华 apt 源（DEB822 格式）==========
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
 
