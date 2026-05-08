@@ -1,0 +1,67 @@
+{
+  "name": "DevOps Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest",
+      "helm": "latest",
+      "minikube": "none"
+    },
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "yaml.customTags": [
+          "!vault scalar",
+          "!include_dir_named scalar",
+          "!include_vars scalar",
+          "!include scalar",
+          "!encrypted/pkcs1-oaep scalar"
+        ],
+        "yaml.format.enable": true,
+        "yaml.validate": true,
+        "ansible.ansible.useFullyQualifiedCollectionNames": true,
+        "ansible.validation.enabled": true,
+        "ansible.validation.lint.enabled": true,
+        "ansible.validation.lint.path": "ansible-lint",
+        "docker.showStartPage": false,
+        "shellcheck.executablePath": "shellcheck",
+        "shellformat.effectLanguages": ["shellscript"],
+        "shellformat.path": "/usr/local/bin/shfmt",
+        "terraform.experimentalFeatures.validateOnSave": true,
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "[terraform]": {
+          "editor.defaultFormatter": "hashicorp.terraform"
+        },
+        "[shellscript]": {
+          "editor.defaultFormatter": "foxundermoon.shell-format"
+        },
+        "[dockerfile]": {
+          "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+        }
+      },
+      "extensions": [
+        "redhat.vscode-yaml",
+        "redhat.ansible",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "hashicorp.terraform",
+        "wholroyd.hcl",
+        "timonwong.shellcheck",
+        "foxundermoon.shell-format",
+        "wholroyd.jinja",
+        "mechatroner.rainbow-csv",
+        "emilast.logfilehighlighter"
+      ]
+    }
+  },
+  "postCreateCommand": "bash -c 'ansible --version && terraform version && kubectl version --client && helm version --client'",
+  "remoteUser": "vscode"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Node.js Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "eslint.workingDirectories": [{ "mode": "auto" }],
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "npm-intellisense.scanDevDependencies": true
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "christian-kohler.npm-intellisense",
+        "yoavbls.pretty-ts-errors",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-typescript-next"
+      ]
+    }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node",
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ]
+}
