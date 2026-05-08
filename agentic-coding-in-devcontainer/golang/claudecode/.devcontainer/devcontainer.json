@@ -13,24 +13,24 @@
     },
     "customizations": {
         "vscode": {
+            "settings": {
+                "editor.defaultFormatter": "golang.go",
+                "editor.insertSpaces": false,
+                "editor.tabSize": 4,
+                "go.useLanguageServer": true,
+                "go.toolsManagement.autoUpdate": false,
+                "go.formatTool": "goimports",
+                "go.lintTool": "golangci-lint",
+                "go.lintOnSave": "package",
+                "go.testFlags": ["-v", "-race"],
+                "go.diagnostic.vulncheck": "Off",
+                "go.goroot": "/usr/local/go",
+                "go.gopath": "/go"
+            },
             "extensions": [
                 "golang.go",
                 "anthropic.claude-code"
             ]
-        },
-        "settings": {
-            "editor.defaultFormatter": "golang.go",
-            "editor.insertSpaces": false,
-            "editor.tabSize": 4,
-            "go.useLanguageServer": true,
-            "go.toolsManagement.autoUpdate": false,
-            "go.formatTool": "goimports",
-            "go.lintTool": "golangci-lint",
-            "go.lintOnSave": "package",
-            "go.testFlags": ["-v", "-race"],
-            "go.diagnostic.vulncheck": "Off",
-            "go.goroot": "/usr/local/go",
-            "go.gopath": "/go"
         }
     },
     "mounts": [
