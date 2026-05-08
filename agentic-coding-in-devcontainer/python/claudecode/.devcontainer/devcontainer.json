@@ -15,15 +15,25 @@
         "vscode": {
             "extensions": [
                 "ms-python.python",
-                "ms-python.debugpy",
-                "ms-python.vscode-python-envs",
-                "ms-python.flake8",
-                "ms-python.black-formatter",
                 "ms-python.vscode-pylance",
-                "redhat.vscode-yaml",
+                "ms-python.vscode-python-envs",
+                "ms-python.debugpy",
+		"charliermarsh.ruff",
+        	"ms-toolsai.jupyter",
+        	"njpwerner.autodocstring",
                 "anthropic.claude-code"
             ],
             "settings": {
+        	"editor.defaultFormatter": "charliermarsh.ruff",
+        	"editor.formatOnSave": true,
+        	"editor.tabSize": 4,
+        	"editor.insertSpaces": true,
+        	"python.analysis.typeCheckingMode": "basic",
+        	"python.analysis.autoImportCompletions": true,
+        	"python.analysis.autoFormatStrings": true,
+        	"autoDocstring.docstringFormat": "google",
+        	"autoDocstring.startOnNewLine": true,
+        	"jupyter.askForKernelRestart": false,
                 "python.defaultInterpreterPath": "/workspace/.venv/bin/python"
             }
         }
