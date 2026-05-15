@@ -57,15 +57,13 @@ create_directory_structure() {
 init_claude_config() {
     log_info "初始化 Claude 配置..."
     
-    local container_settings="/etc/claude/container-settings.json"
+    local latest_settings=$(ls -lt $HOME/.claude/settings/*.json | head -1 | awk '{print $NF}')
     local user_settings="$HOME/.claude/settings.json"
     
     # 如果用户配置不存在，从容器配置复制
-    if [ ! -f "$user_settings" ] && [ -f "$container_settings" ]; then
-        cp "$container_settings" "$user_settings"
+    if [ -f "$container_settings" ]; then
+        cp "$latest_settings" "$user_settings"
         log_info "✓ 已创建 settings.json"
-    elif [ -f "$user_settings" ]; then
-        log_info "✓ settings.json 已存在，保留用户配置"
     else
         log_warn "未找到配置模板，跳过"
     fi
@@ -144,7 +142,7 @@ main() {
     create_directory_structure
     
     # 3. 初始化配置
-    # init_claude_config
+    init_claude_config
     
     # 4. 检查依赖
     check_dependencies
