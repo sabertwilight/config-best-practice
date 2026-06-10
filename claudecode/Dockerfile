@@ -4,7 +4,7 @@
 # ==========================================
 FROM swr.cn-east-3.myhuaweicloud.com/vsatlib/debian:12 AS claude-code
 
-ARG CLAUDE_VERSION=2.1.139
+ARG CLAUDE_VERSION=2.1.169
 ARG TARGETARCH
 ARG CLAUDE_SHA256_X64=""
 ARG CLAUDE_SHA256_ARM64=""
