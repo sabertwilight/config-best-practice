@@ -1,7 +1,15 @@
 {
-  "name": "Node.js Dev",
-  "build": {
-    "dockerfile": "Dockerfile"
+  "name": "ccnodev",
+  "image": "ccnodevc:2.1.169-18-debian11",
+  "runArgs": [
+    "--add-host=host.docker.internal:host-gateway",
+    "--network",
+    "app32"
+  ],
+  "containerEnv": {
+    "HTTP_PROXY": "http://host.docker.internal:7890",
+    "HTTPS_PROXY": "http://host.docker.internal:7890",
+    "NO_PROXY": "localhost,127.0.0.1"
   },
   "customizations": {
     "vscode": {
@@ -11,7 +19,11 @@
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "explicit"
         },
-        "eslint.workingDirectories": [{ "mode": "auto" }],
+        "eslint.workingDirectories": [
+          {
+            "mode": "auto"
+          }
+        ],
         "typescript.tsdk": "node_modules/typescript/lib",
         "npm-intellisense.scanDevDependencies": true
       },
@@ -25,9 +37,15 @@
       ]
     }
   },
-  "postCreateCommand": "npm install",
-  "remoteUser": "node",
   "mounts": [
-    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
-  ]
+    "source=${localWorkspaceFolder:HOME}/.devcontainer,target=/workspace/.devcontainer,type=bind,consistency=cached",
+    "source=ccnodev-cc,target=/home/vscode/.claude,type=volume",
+    "source=${localEnv:HOME}/.claude/settings,target=/home/vscode/.claude/settings,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.claude/plugins/claude-hud/config.json,target=/home/vscode/.claude/plugins/claude-hud/config.json,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/llm-providers,target=/home/vscode/.config/llm-providers,type=bind,consistency=cached"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "node",
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
 }
