@@ -1,7 +1,17 @@
 {
-  "name": "DevOps Dev",
+  "name": "ccdevops",
   "build": {
     "dockerfile": "Dockerfile"
+  },
+  "runArgs": [
+    "--add-host=host.docker.internal:host-gateway",
+    "--network",
+    "app32"
+  ],
+  "containerEnv": {
+    "HTTP_PROXY": "http://host.docker.internal:7890",
+    "HTTPS_PROXY": "http://host.docker.internal:7890",
+    "NO_PROXY": "localhost,127.0.0.1"
   },
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
@@ -58,10 +68,20 @@
         "foxundermoon.shell-format",
         "wholroyd.jinja",
         "mechatroner.rainbow-csv",
-        "emilast.logfilehighlighter"
+        "emilast.logfilehighlighter",
+        "anthropic.claude-code"
       ]
     }
   },
-  "postCreateCommand": "bash -c 'ansible --version && terraform version && kubectl version --client && helm version --client'",
+  "mounts": [
+    "source=${localWorkspaceFolder:HOME}/.devcontainer,target=/workspace/.devcontainer,type=bind,consistency=cached",
+    "source=ccdevops-cc,target=/home/vscode/.claude,type=volume",
+    "source=${localEnv:HOME}/.claude/settings,target=/home/vscode/.claude/settings,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.claude/plugins/claude-hud/config.json,target=/home/vscode/.claude/plugins/claude-hud/config.json,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/llm-providers,target=/home/vscode/.config/llm-providers,type=bind,consistency=cached"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
   "remoteUser": "vscode"
 }

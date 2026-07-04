@@ -2,7 +2,7 @@
 set -e
 
 # 修复volume挂载root的问题
-sudo chown -R vscode:vscode /home/vscode
+sudo chown -R vscode:vscode /home/vscode/.claude
 # 注入llm-provider环境变量
 echo 'eval "$(direnv hook bash)"' >> /home/vscode/.bashrc
 

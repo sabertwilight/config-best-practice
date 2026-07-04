@@ -53,7 +53,30 @@ create_directory_structure() {
     log_info "✓ 目录结构创建完成"
 }
 
-# ========== 3. 检查环境依赖 ==========
+# ========== 3. 初始化 Claude 配置 ==========
+init_claude_config() {
+    log_info "初始化 Claude 配置..."
+
+    local user_settings="$HOME/.claude/settings.json"
+    local template_settings
+    template_settings=$(ls -t $HOME/.claude/settings/*.json 2>/dev/null | head -1 || true)
+
+    # 用户配置已存在则保留
+    if [ -f "$user_settings" ]; then
+        log_info "✓ settings.json 已存在，保留用户配置"
+        return 0
+    fi
+
+    # 否则从 ~/.claude/settings/ 下最新的模板拷贝
+    if [ -n "$template_settings" ] && [ -f "$template_settings" ]; then
+        cp "$template_settings" "$user_settings"
+        log_info "✓ 已从模板创建 settings.json（来源：$template_settings）"
+    else
+        log_warn "未找到 settings 模板，跳过"
+    fi
+}
+
+# ========== 4. 检查环境依赖 ==========
 check_dependencies() {
     log_info "检查环境依赖..."
 
@@ -92,7 +115,7 @@ check_dependencies() {
     fi
 }
 
-# ========== 4. 显示环境摘要 ==========
+# ========== 5. 显示环境摘要 ==========
 show_summary() {
     echo ""
     echo "╔════════════════════════════════════════════════════════════╗"
@@ -125,10 +148,13 @@ main() {
     # 2. 创建目录结构
     create_directory_structure
 
-    # 3. 检查依赖
+    # 3. 初始化配置
+    init_claude_config
+
+    # 4. 检查依赖
     check_dependencies
 
-    # 4. 显示摘要
+    # 5. 显示摘要
     show_summary
 
     log_info "初始化完成！"

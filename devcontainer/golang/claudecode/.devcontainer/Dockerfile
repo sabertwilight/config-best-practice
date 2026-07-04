@@ -1,5 +1,5 @@
 ARG GOLANG_BASE=swr.cn-east-3.myhuaweicloud.com/vsatlib/golang:1.25
-ARG CC_VERSION=2.1.169
+ARG CC_VERSION=2.1.139
 
 # ====== 阶段 1：提取 Claude Code ======
 FROM swr.cn-east-3.myhuaweicloud.com/vsatlib/claudecode:${CC_VERSION} AS claude_stage

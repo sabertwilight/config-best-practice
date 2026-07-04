@@ -33,7 +33,8 @@
         "christian-kohler.npm-intellisense",
         "yoavbls.pretty-ts-errors",
         "bradlc.vscode-tailwindcss",
-        "ms-vscode.vscode-typescript-next"
+        "ms-vscode.vscode-typescript-next",
+        "anthropic.claude-code"
       ]
     }
   },
@@ -46,6 +47,6 @@
   ],
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
-  "remoteUser": "node",
+  "remoteUser": "vscode",
   "postCreateCommand": "bash .devcontainer/post-create.sh"
 }

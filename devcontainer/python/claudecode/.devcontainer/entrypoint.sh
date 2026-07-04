@@ -56,16 +56,23 @@ create_directory_structure() {
 # ========== 3. 初始化 Claude 配置 ==========
 init_claude_config() {
     log_info "初始化 Claude 配置..."
-    
-    local latest_settings=$(ls -lt $HOME/.claude/settings/*.json | head -1 | awk '{print $NF}')
+
     local user_settings="$HOME/.claude/settings.json"
-    
-    # 如果用户配置不存在，从容器配置复制
-    if [ -f "$container_settings" ]; then
-        cp "$latest_settings" "$user_settings"
-        log_info "✓ 已创建 settings.json"
+    local template_settings
+    template_settings=$(ls -t $HOME/.claude/settings/*.json 2>/dev/null | head -1 || true)
+
+    # 用户配置已存在则保留
+    if [ -f "$user_settings" ]; then
+        log_info "✓ settings.json 已存在，保留用户配置"
+        return 0
+    fi
+
+    # 否则从 ~/.claude/settings/ 下最新的模板拷贝
+    if [ -n "$template_settings" ] && [ -f "$template_settings" ]; then
+        cp "$template_settings" "$user_settings"
+        log_info "✓ 已从模板创建 settings.json（来源：$template_settings）"
     else
-        log_warn "未找到配置模板，跳过"
+        log_warn "未找到 settings 模板，跳过"
     fi
 }
 
